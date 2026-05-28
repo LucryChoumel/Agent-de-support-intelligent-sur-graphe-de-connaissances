@@ -1,0 +1,127 @@
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix sup:  <http://support.kg/ontology#> .
+
+# ─── Ontologie ────────────────────────────────────────────────────────────────
+sup:Ontology a owl:Ontology ;
+    rdfs:label "Support Knowledge Graph Ontology" ;
+    rdfs:comment "Ontologie formelle pour un système de support technique inspiré de SAP PPMS." .
+
+# ─── Classes ──────────────────────────────────────────────────────────────────
+sup:SoftwareComponent a owl:Class ;
+    rdfs:label "Software Component" ;
+    rdfs:comment "Un composant logiciel autonome (ex: module, bibliothèque, service)." .
+
+sup:ProductVersion a owl:Class ;
+    rdfs:label "Product Version" ;
+    rdfs:comment "Une version spécifique d'un produit logiciel." .
+
+sup:SupportTicket a owl:Class ;
+    rdfs:label "Support Ticket" ;
+    rdfs:comment "Un ticket de support ou rapport de bug (analogue aux SAP Notes)." .
+
+sup:Fix a owl:Class ;
+    rdfs:label "Fix" ;
+    rdfs:comment "Un correctif ou patch appliqué pour résoudre un ticket." .
+
+sup:Dependency a owl:Class ;
+    rdfs:label "Dependency" ;
+    rdfs:comment "Une dépendance entre composants logiciels." .
+
+sup:Severity a owl:Class ;
+    rdfs:label "Severity" ;
+    rdfs:comment "Niveau de sévérité d'un ticket : critical, high, medium, low." .
+
+# ─── Propriétés d'objet ───────────────────────────────────────────────────────
+sup:affectsComponent a owl:ObjectProperty ;
+    rdfs:domain sup:SupportTicket ;
+    rdfs:range  sup:SoftwareComponent ;
+    rdfs:label "affects component" .
+
+sup:affectsVersion a owl:ObjectProperty ;
+    rdfs:domain sup:SupportTicket ;
+    rdfs:range  sup:ProductVersion ;
+    rdfs:label "affects version" .
+
+sup:fixedBy a owl:ObjectProperty ;
+    rdfs:domain sup:SupportTicket ;
+    rdfs:range  sup:Fix ;
+    rdfs:label "fixed by" .
+
+sup:introducedIn a owl:ObjectProperty ;
+    rdfs:domain sup:SupportTicket ;
+    rdfs:range  sup:ProductVersion ;
+    rdfs:label "introduced in" .
+
+sup:resolvedIn a owl:ObjectProperty ;
+    rdfs:domain sup:Fix ;
+    rdfs:range  sup:ProductVersion ;
+    rdfs:label "resolved in" .
+
+sup:dependsOn a owl:ObjectProperty ;
+    rdfs:domain sup:SoftwareComponent ;
+    rdfs:range  sup:SoftwareComponent ;
+    rdfs:label "depends on" .
+
+sup:belongsTo a owl:ObjectProperty ;
+    rdfs:domain sup:ProductVersion ;
+    rdfs:range  sup:SoftwareComponent ;
+    rdfs:label "belongs to" .
+
+sup:hasSeverity a owl:ObjectProperty ;
+    rdfs:domain sup:SupportTicket ;
+    rdfs:range  sup:Severity ;
+    rdfs:label "has severity" .
+
+sup:relatedTo a owl:ObjectProperty, owl:SymmetricProperty ;
+    rdfs:domain sup:SupportTicket ;
+    rdfs:range  sup:SupportTicket ;
+    rdfs:label "related to" .
+
+# ─── Propriétés de données ────────────────────────────────────────────────────
+sup:ticketId a owl:DatatypeProperty ;
+    rdfs:domain sup:SupportTicket ;
+    rdfs:range  xsd:string ;
+    rdfs:label "ticket ID" .
+
+sup:title a owl:DatatypeProperty ;
+    rdfs:range  xsd:string ;
+    rdfs:label "title" .
+
+sup:description a owl:DatatypeProperty ;
+    rdfs:range  xsd:string ;
+    rdfs:label "description" .
+
+sup:createdAt a owl:DatatypeProperty ;
+    rdfs:range  xsd:dateTime ;
+    rdfs:label "created at" .
+
+sup:closedAt a owl:DatatypeProperty ;
+    rdfs:range  xsd:dateTime ;
+    rdfs:label "closed at" .
+
+sup:versionNumber a owl:DatatypeProperty ;
+    rdfs:domain sup:ProductVersion ;
+    rdfs:range  xsd:string ;
+    rdfs:label "version number" .
+
+sup:componentName a owl:DatatypeProperty ;
+    rdfs:domain sup:SoftwareComponent ;
+    rdfs:range  xsd:string ;
+    rdfs:label "component name" .
+
+sup:state a owl:DatatypeProperty ;
+    rdfs:range  xsd:string ;
+    rdfs:label "state" .
+
+sup:labels a owl:DatatypeProperty ;
+    rdfs:range  xsd:string ;
+    rdfs:label "labels" .
+
+# ─── Individus : niveaux de sévérité ──────────────────────────────────────────
+sup:Critical a sup:Severity ; rdfs:label "critical" .
+sup:High     a sup:Severity ; rdfs:label "high" .
+sup:Medium   a sup:Severity ; rdfs:label "medium" .
+sup:Low      a sup:Severity ; rdfs:label "low" .

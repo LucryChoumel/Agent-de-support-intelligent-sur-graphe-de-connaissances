@@ -1,6 +1,6 @@
 # Agent de Support Intelligent — Graphe de Connaissances + LLM
 
-Projet académique aligné sur l'offre **CIFRE SAP Labs France** (IA Agentique & Graphes de Connaissances).
+Projet académique (IA Agentique & Graphes de Connaissances).
 
 Pipeline complet : données GitHub réelles → ontologie RDF/OWL → agent NL→SPARQL (Ollama) → benchmark d'évaluation.
 
@@ -27,11 +27,11 @@ kg_support_agent/
 
 ## Ontologie
 
-Inspirée du modèle SAP PPMS, l'ontologie définit :
+Inspirée du modèle PPMS, l'ontologie définit :
 
 | Classe              | Rôle                                  |
 |---------------------|---------------------------------------|
-| `SupportTicket`     | Bug / rapport de support (≈ SAP Note) |
+| `SupportTicket`     | Bug / rapport de support              |
 | `SoftwareComponent` | Module logiciel (≈ SimCat)            |
 | `ProductVersion`    | Version de produit (≈ PPMS)           |
 | `Fix`               | Correctif / SupportPackage            |
@@ -120,19 +120,7 @@ python main.py \
     --verbose \
     --output results.json
 ```
-
----
-
-## Connexion SAP
-
-| Ce projet                    | Offre SAP CIFRE                        |
-|-----------------------------|----------------------------------------|
-| Ontologie OWL + RDF          | Standards RDF + ontologie formelle     |
-| GitHub Issues                | SAP Notes, alertes système             |
-| SoftwareComponent + Version  | SimCat + PPMS (ProductVersion, etc.)   |
-| Agent NL→SPARQL              | LLM pilotés par raisonnement sur KG    |
-| Benchmark 50 questions       | Pipeline évalué par benchmarks         |
-| `dependsOn`, `relatedTo`     | Graphe sémantiquement structuré        |
+       |
 
 ---
 
